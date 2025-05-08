@@ -1,10 +1,20 @@
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, ValidationError
 import pickle
 import pandas as pd
 
 app = FastAPI(title="API Prediksi Pengeluaran CPS")
+
+# IZINKAN SEMUA ASAL (untuk development, nanti bisa dibatasi)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://cpshaulage.vercel.app"]
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Load model dan scaler
 try:
