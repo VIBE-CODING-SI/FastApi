@@ -19,7 +19,7 @@ except Exception as e:
 # Skema input
 class Transaction(BaseModel):
     Tanggal: str
-    Customer: str
+    Pelanggan: str
     Nama_Kapal: str
     Nominal_yang_Dibayarkan: float
     DPP: float
@@ -30,7 +30,7 @@ def create_features(data: Transaction):
     try:
         df = pd.DataFrame([{
             "Tanggal": pd.to_datetime(data.Tanggal),
-            "Customer": data.Customer,
+            "Pelanggan": data.Pelanggan,
             "Nama Kapal": data.Nama_Kapal,
             "Nominal yang Dibayarkan": data.Nominal_yang_Dibayarkan,
             "DPP": data.DPP,
@@ -64,7 +64,7 @@ def predict_cluster(data: Transaction):
         cluster_label = cluster_mapping.get(int(prediction), "Tidak Diketahui")
 
         return {
-            "Customer": data.Customer,
+            "Pelanggan": data.Pelanggan,
             "Nama Kapal": data.Nama_Kapal,
             "KMeans_Label": int(prediction),
             "Prediksi": cluster_label
